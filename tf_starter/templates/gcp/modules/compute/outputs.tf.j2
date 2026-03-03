@@ -1,0 +1,13 @@
+# COMPUTE MODULE — Outputs (GCP)
+
+output "load_balancer_ip" {
+  value = google_compute_global_address.lb.address
+}
+
+output "instance_group" {
+  value = google_compute_region_instance_group_manager.main.instance_group
+}
+
+output "instance_template_id" {
+  value = google_compute_instance_template.main.id
+}

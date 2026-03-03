@@ -1,0 +1,13 @@
+# MESSAGING MODULE — Outputs (GCP)
+
+output "topic_id" {
+  value = google_pubsub_topic.main.id
+}
+
+output "topic_name" {
+  value = google_pubsub_topic.main.name
+}
+
+output "subscription_id" {
+  value = google_pubsub_subscription.main.id
+}

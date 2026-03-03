@@ -1,0 +1,25 @@
+# NETWORK MODULE — Variables (Azure)
+
+variable "project_name" { type = string }
+variable "environment" { type = string }
+variable "location" { type = string }
+
+variable "vnet_address_space" {
+  type    = list(string)
+  default = ["10.0.0.0/16"]
+}
+
+variable "public_subnet_cidr" {
+  type    = string
+  default = "10.0.1.0/24"
+}
+
+variable "private_subnet_cidr" {
+  type    = string
+  default = "10.0.10.0/24"
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

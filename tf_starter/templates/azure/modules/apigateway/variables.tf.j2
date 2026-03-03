@@ -1,0 +1,54 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# API GATEWAY MODULE (Azure API Management) — Variables
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+}
+
+variable "function_app_hostname" {
+  description = "Default hostname of the Function App"
+  type        = string
+}
+
+variable "publisher_name" {
+  description = "Publisher name for API Management"
+  type        = string
+  default     = "DevOps Team"
+}
+
+variable "publisher_email" {
+  description = "Publisher email for API Management"
+  type        = string
+  default     = "admin@example.com"
+
+  ### MUST EDIT THIS ###
+}
+
+variable "sku_name" {
+  description = "API Management SKU (Consumption, Developer, Basic, Standard, Premium)"
+  type        = string
+  default     = "Consumption_0"
+}
+
+variable "tags" {
+  description = "Common resource tags"
+  type        = map(string)
+  default     = {}
+}

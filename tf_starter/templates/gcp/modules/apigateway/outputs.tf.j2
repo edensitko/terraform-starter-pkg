@@ -1,0 +1,18 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# API GATEWAY MODULE — Outputs
+# ---------------------------------------------------------------------------------------------------------------------
+
+output "gateway_url" {
+  description = "Default hostname of the API Gateway"
+  value       = google_api_gateway_gateway.main.default_hostname
+}
+
+output "api_id" {
+  description = "ID of the API Gateway API"
+  value       = google_api_gateway_api.main.api_id
+}
+
+output "gateway_id" {
+  description = "ID of the API Gateway"
+  value       = google_api_gateway_gateway.main.gateway_id
+}

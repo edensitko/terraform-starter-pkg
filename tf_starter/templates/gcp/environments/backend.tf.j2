@@ -1,0 +1,9 @@
+# REMOTE BACKEND — {{ environment | upper }} (GCS)
+
+terraform {
+  backend "gcs" {
+    ### MUST EDIT THIS ###
+    bucket = "{{ project_name }}-terraform-state"
+    prefix = "{{ project_name }}/{{ environment }}/terraform.tfstate"
+  }
+}

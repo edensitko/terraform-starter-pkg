@@ -1,0 +1,14 @@
+# ENVIRONMENT TFVARS: {{ environment | upper }} — Azure
+# ### MUST EDIT THIS ###
+
+vnet_address_space  = ["10.0.0.0/16"]
+public_subnet_cidr  = "10.0.1.0/24"
+private_subnet_cidr = "10.0.10.0/24"
+
+{% if "database" in services %}
+db_admin_login = "dbadmin"
+{% endif %}
+
+{% if "monitoring" in services %}
+alert_email = "alerts@example.com"
+{% endif %}

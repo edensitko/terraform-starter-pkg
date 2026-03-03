@@ -1,0 +1,21 @@
+# NETWORK MODULE — Outputs (GCP)
+
+output "network_self_link" {
+  value = google_compute_network.main.self_link
+}
+
+output "network_name" {
+  value = google_compute_network.main.name
+}
+
+output "public_subnet_self_link" {
+  value = google_compute_subnetwork.public.self_link
+}
+
+output "private_subnet_self_link" {
+  value = google_compute_subnetwork.private.self_link
+}
+
+output "private_ip_range_name" {
+  value = google_compute_global_address.private_ip.name
+}

@@ -1,0 +1,33 @@
+# COMPUTE MODULE — Variables (GCP)
+
+variable "project_name" { type = string }
+variable "environment" { type = string }
+variable "project_id" { type = string }
+variable "region" { type = string }
+variable "network_self_link" { type = string }
+variable "subnet_self_link" { type = string }
+
+variable "machine_type" {
+  type    = string
+  default = "e2-medium"
+}
+
+variable "min_replicas" {
+  type    = number
+  default = 1
+}
+
+variable "max_replicas" {
+  type    = number
+  default = 4
+}
+
+variable "target_size" {
+  type    = number
+  default = 2
+}
+
+variable "labels" {
+  type    = map(string)
+  default = {}
+}

@@ -1,0 +1,30 @@
+# ENVIRONMENT VARIABLES: {{ environment | upper }} — Azure
+
+variable "vnet_address_space" {
+  type    = list(string)
+  default = ["10.0.0.0/16"]
+}
+
+variable "public_subnet_cidr" {
+  type    = string
+  default = "10.0.1.0/24"
+}
+
+variable "private_subnet_cidr" {
+  type    = string
+  default = "10.0.10.0/24"
+}
+
+{% if "database" in services %}
+variable "db_admin_login" {
+  type      = string
+  sensitive = true
+}
+{% endif %}
+
+{% if "monitoring" in services %}
+variable "alert_email" {
+  type    = string
+  default = ""
+}
+{% endif %}

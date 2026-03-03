@@ -1,0 +1,41 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# MESSAGING MODULE — Variables
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+}
+
+variable "message_retention_seconds" {
+  description = "Number of seconds to retain messages"
+  type        = number
+  default     = 345600  # 4 days
+
+  validation {
+    condition     = var.message_retention_seconds >= 60 && var.message_retention_seconds <= 1209600
+    error_message = "Retention must be between 60 and 1209600 seconds."
+  }
+}
+
+variable "visibility_timeout" {
+  description = "Visibility timeout in seconds"
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.visibility_timeout >= 0 && var.visibility_timeout <= 43200
+    error_message = "Visibility timeout must be between 0 and 43200 seconds."
+  }
+}
+
+variable "tags" {
+  description = "Common resource tags"
+  type        = map(string)
+  default     = {}
+}

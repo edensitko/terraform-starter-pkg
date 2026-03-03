@@ -1,0 +1,29 @@
+# DATABASE MODULE — Variables (GCP)
+
+variable "project_name" { type = string }
+variable "environment" { type = string }
+variable "project_id" { type = string }
+variable "region" { type = string }
+variable "network_self_link" { type = string }
+variable "private_ip_range_name" { type = string }
+
+variable "db_tier" {
+  type    = string
+  default = "db-custom-2-7680"
+}
+
+variable "db_name" { type = string }
+variable "db_user" {
+  type      = string
+  sensitive = true
+}
+
+variable "db_ha" {
+  type    = bool
+  default = false
+}
+
+variable "labels" {
+  type    = map(string)
+  default = {}
+}

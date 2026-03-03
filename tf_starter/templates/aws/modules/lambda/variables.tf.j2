@@ -1,0 +1,88 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# LAMBDA MODULE — Variables
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+}
+
+variable "function_name" {
+  description = "Short name for the Lambda function (appended to project-env prefix)"
+  type        = string
+  default     = "app"
+}
+
+variable "runtime" {
+  description = "Lambda runtime identifier"
+  type        = string
+  default     = "python3.12"
+
+  validation {
+    condition     = can(regex("^(python3\\.|nodejs|java|dotnet|ruby|provided)", var.runtime))
+    error_message = "Must be a valid Lambda runtime (e.g., python3.12, nodejs20.x)."
+  }
+}
+
+variable "handler" {
+  description = "Lambda function handler"
+  type        = string
+  default     = "index.handler"
+}
+
+variable "timeout" {
+  description = "Lambda function timeout in seconds"
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.timeout >= 1 && var.timeout <= 900
+    error_message = "Timeout must be between 1 and 900 seconds."
+  }
+}
+
+variable "memory_size" {
+  description = "Lambda function memory in MB"
+  type        = number
+  default     = 256
+
+  validation {
+    condition     = var.memory_size >= 128 && var.memory_size <= 10240
+    error_message = "Memory must be between 128 and 10240 MB."
+  }
+}
+
+variable "environment_variables" {
+  description = "Additional environment variables for the Lambda function"
+  type        = map(string)
+  default     = {}
+}
+
+variable "deploy_in_vpc" {
+  description = "Deploy the Lambda function inside the VPC"
+  type        = bool
+  default     = false
+}
+
+variable "vpc_id" {
+  description = "VPC ID (required if deploy_in_vpc is true)"
+  type        = string
+  default     = ""
+}
+
+variable "private_subnet_ids" {
+  description = "Private subnet IDs (required if deploy_in_vpc is true)"
+  type        = list(string)
+  default     = []
+}
+
+variable "tags" {
+  description = "Common resource tags"
+  type        = map(string)
+  default     = {}
+}

@@ -1,0 +1,9 @@
+# MONITORING MODULE — Outputs (GCP)
+
+output "notification_channel_id" {
+  value = length(google_monitoring_notification_channel.email) > 0 ? google_monitoring_notification_channel.email[0].id : ""
+}
+
+output "alert_policy_id" {
+  value = google_monitoring_alert_policy.cpu_high.id
+}

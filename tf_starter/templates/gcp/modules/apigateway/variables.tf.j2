@@ -1,0 +1,34 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# API GATEWAY MODULE — Variables
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+}
+
+variable "project_id" {
+  description = "GCP project ID"
+  type        = string
+}
+
+variable "region" {
+  description = "GCP region"
+  type        = string
+}
+
+variable "function_uri" {
+  description = "URI of the Cloud Function to route requests to"
+  type        = string
+}
+
+variable "labels" {
+  description = "Resource labels"
+  type        = map(string)
+  default     = {}
+}

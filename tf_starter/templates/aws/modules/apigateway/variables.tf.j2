@@ -1,0 +1,69 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# API GATEWAY MODULE — Variables
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+}
+
+variable "lambda_function_name" {
+  description = "Name of the Lambda function to integrate with"
+  type        = string
+}
+
+variable "lambda_invoke_arn" {
+  description = "Invoke ARN of the Lambda function"
+  type        = string
+}
+
+variable "endpoint_type" {
+  description = "API Gateway endpoint type (REGIONAL, EDGE, PRIVATE)"
+  type        = string
+  default     = "REGIONAL"
+
+  validation {
+    condition     = contains(["REGIONAL", "EDGE", "PRIVATE"], var.endpoint_type)
+    error_message = "Endpoint type must be REGIONAL, EDGE, or PRIVATE."
+  }
+}
+
+variable "authorization_type" {
+  description = "Default authorization type for API methods"
+  type        = string
+  default     = "NONE"
+
+  validation {
+    condition     = contains(["NONE", "AWS_IAM", "COGNITO_USER_POOLS", "CUSTOM"], var.authorization_type)
+    error_message = "Authorization type must be NONE, AWS_IAM, COGNITO_USER_POOLS, or CUSTOM."
+  }
+}
+
+variable "throttle_burst_limit" {
+  description = "API Gateway throttle burst limit"
+  type        = number
+  default     = 100
+}
+
+variable "throttle_rate_limit" {
+  description = "API Gateway throttle rate limit (requests/second)"
+  type        = number
+  default     = 50
+}
+
+variable "enable_cors" {
+  description = "Enable CORS support on the API"
+  type        = bool
+  default     = true
+}
+
+variable "tags" {
+  description = "Common resource tags"
+  type        = map(string)
+  default     = {}
+}

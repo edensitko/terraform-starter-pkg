@@ -1,0 +1,38 @@
+# KUBERNETES MODULE — Variables (GCP)
+
+variable "project_name" { type = string }
+variable "environment" { type = string }
+variable "project_id" { type = string }
+variable "region" { type = string }
+variable "network_self_link" { type = string }
+variable "subnet_self_link" { type = string }
+
+variable "cluster_version" {
+  type    = string
+  default = "latest"
+}
+
+variable "node_machine_type" {
+  type    = string
+  default = "e2-standard-4"
+}
+
+variable "node_count" {
+  type    = number
+  default = 2
+}
+
+variable "node_min_count" {
+  type    = number
+  default = 1
+}
+
+variable "node_max_count" {
+  type    = number
+  default = 5
+}
+
+variable "labels" {
+  type    = map(string)
+  default = {}
+}

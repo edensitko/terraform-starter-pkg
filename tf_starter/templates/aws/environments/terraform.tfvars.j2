@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# ENVIRONMENT TFVARS: {{ environment | upper }}
+# Project: {{ project_name }}
+#
+# ### MUST EDIT THIS ###
+# Update these values for your {{ environment }} environment.
+# ---------------------------------------------------------------------------------------------------------------------
+
+vpc_cidr             = "10.0.0.0/16"
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.10.0/24", "10.0.11.0/24"]
+availability_zones   = ["{{ region }}a", "{{ region }}b"]
+
+{% if "lambda" in services %}
+lambda_function_name = "app"
+lambda_runtime       = "python3.12"
+lambda_handler       = "index.handler"
+lambda_timeout       = {% if environment == "prod" %}60{% else %}30{% endif %}
+
+lambda_memory_size   = {% if environment == "prod" %}512{% else %}256{% endif %}
+
+lambda_deploy_in_vpc = {{ (environment == "prod") | tf_bool }}
+{% endif %}
+
+{% if "apigateway" in services %}
+apigw_endpoint_type      = "REGIONAL"
+apigw_throttle_burst_limit = {% if environment == "prod" %}500{% else %}100{% endif %}
+
+apigw_throttle_rate_limit  = {% if environment == "prod" %}200{% else %}50{% endif %}
+
+apigw_enable_cors          = true
+{% endif %}
+
+{% if "database" in services %}
+### MUST EDIT THIS ###
+db_username = "dbadmin"
+{% endif %}
+
+{% if "monitoring" in services %}
+### MUST EDIT THIS ###
+alarm_email = "alerts@example.com"
+{% endif %}
+
+{% if "messaging" in services %}
+sqs_message_retention  = {% if environment == "prod" %}1209600{% else %}345600{% endif %}
+
+sqs_visibility_timeout = 30
+{% endif %}
+
+{% if "storage" in services %}
+s3_enable_versioning = {{ (environment == "prod") | tf_bool }}
+{% endif %}

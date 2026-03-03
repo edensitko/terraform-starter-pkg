@@ -1,0 +1,43 @@
+{
+  "name": "tf-starter",
+  "version": "1.0.0",
+  "description": "Enterprise-grade Terraform Infrastructure-as-Code project generator",
+  "keywords": [
+    "terraform",
+    "infrastructure-as-code",
+    "iac",
+    "aws",
+    "gcp",
+    "azure",
+    "devops",
+    "scaffolding",
+    "generator"
+  ],
+  "author": "DevOps Team",
+  "license": "MIT",
+  "bin": {
+    "tf-starter": "./bin/tf-starter.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js",
+    "test": "node bin/tf-starter.js --help"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "tf_starter/",
+    "setup.py"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/tf-starter"
+  }
+}

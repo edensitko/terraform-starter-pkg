@@ -1,0 +1,14 @@
+.DS_Store
+.venv/
+.claude/
+# Python
+__pycache__/
+*.pyc
+# egg info
+*.egg-info/
+# node
+node_modules/
+package-lock.json
+npm-debug.log
+# IDE
+.vscode/

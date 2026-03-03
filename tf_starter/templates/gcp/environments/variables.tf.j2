@@ -1,0 +1,21 @@
+# ENVIRONMENT VARIABLES: {{ environment | upper }} — GCP
+
+variable "project_id" {
+  description = "GCP project ID"
+  type        = string
+  ### MUST EDIT THIS ###
+}
+
+{% if "database" in services %}
+variable "db_user" {
+  type      = string
+  sensitive = true
+}
+{% endif %}
+
+{% if "monitoring" in services %}
+variable "notification_email" {
+  type    = string
+  default = ""
+}
+{% endif %}

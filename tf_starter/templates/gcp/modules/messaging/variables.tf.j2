@@ -1,0 +1,20 @@
+# MESSAGING MODULE — Variables (GCP)
+
+variable "project_name" { type = string }
+variable "environment" { type = string }
+variable "project_id" { type = string }
+
+variable "message_retention_duration" {
+  type    = string
+  default = "604800s"
+}
+
+variable "ack_deadline_seconds" {
+  type    = number
+  default = 20
+}
+
+variable "labels" {
+  type    = map(string)
+  default = {}
+}

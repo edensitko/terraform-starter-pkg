@@ -1,0 +1,11 @@
+# REMOTE BACKEND — Azure Storage
+
+terraform {
+  backend "azurerm" {
+    ### MUST EDIT THIS ###
+    resource_group_name  = "{{ project_name }}-tfstate-rg"
+    storage_account_name = "{{ project_name | replace('-', '') }}tfstate"
+    container_name       = "tfstate"
+    key                  = "{{ project_name }}/terraform.tfstate"
+  }
+}

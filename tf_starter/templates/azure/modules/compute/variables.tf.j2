@@ -1,0 +1,23 @@
+# COMPUTE MODULE — Variables (Azure)
+
+variable "project_name" { type = string }
+variable "environment" { type = string }
+variable "location" { type = string }
+variable "resource_group_name" { type = string }
+variable "subnet_id" { type = string }
+variable "public_subnet_id" { type = string }
+
+variable "vm_size" {
+  type    = string
+  default = "Standard_B2s"
+}
+
+variable "instance_count" {
+  type    = number
+  default = 2
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

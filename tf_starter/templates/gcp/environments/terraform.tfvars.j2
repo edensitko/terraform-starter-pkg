@@ -1,0 +1,12 @@
+# ENVIRONMENT TFVARS: {{ environment | upper }} — GCP
+# ### MUST EDIT THIS ###
+
+project_id = "your-gcp-project-id"
+
+{% if "database" in services %}
+db_user = "dbadmin"
+{% endif %}
+
+{% if "monitoring" in services %}
+notification_email = "alerts@example.com"
+{% endif %}
