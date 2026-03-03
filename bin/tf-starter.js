@@ -65,7 +65,7 @@ function main() {
   const args = ["-m", "tf_starter.cli", ...process.argv.slice(2)];
 
   const child = spawn(pythonBin, args, {
-    cwd: PKG_ROOT,
+    cwd: process.cwd(),
     stdio: "inherit",
     env: {
       ...process.env,

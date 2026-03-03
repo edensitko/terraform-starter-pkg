@@ -1,7 +1,11 @@
 {
   "name": "tf-starter",
-  "version": "1.0.0",
-  "description": "Enterprise-grade Terraform Infrastructure-as-Code project generator",
+  "version": "1.0.2",
+  "description": "Terraform multi-cloud project starter CLI",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edensitko/terraform-starter-pkg.git"
+  },
   "keywords": [
     "terraform",
     "infrastructure-as-code",
@@ -13,7 +17,11 @@
     "scaffolding",
     "generator"
   ],
-  "author": "DevOps Team",
+  "homepage": "https://github.com/edensitko/terraform-starter-pkg#readme",
+  "bugs": {
+    "url": "https://github.com/edensitko/terraform-starter-pkg/issues"
+  },
+ "author": "Eden sitko",
   "license": "MIT",
   "bin": {
     "tf-starter": "./bin/tf-starter.js"
@@ -35,9 +43,6 @@
     "darwin",
     "linux",
     "win32"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/your-org/tf-starter"
-  }
+  ]
+
 }
