@@ -94,7 +94,7 @@ source .venv/bin/activate
 pip install -e .
 
 # Run
-tf-starter --provider aws --project-name myapp
+tf-starter init
 ```
 
 ### Option 2: npm (Node.js)
@@ -108,14 +108,14 @@ cd tf-starter
 npm install
 
 # Run
-npx tf-starter --provider aws --project-name myapp
+npx tf-starter init
 ```
 
 ### Option 3: npm global install
 
 ```bash
 npm install -g tf-starter
-tf-starter --provider aws --project-name myapp
+tf-starter init
 ```
 
 ---
@@ -125,37 +125,50 @@ tf-starter --provider aws --project-name myapp
 ### Basic Command
 
 ```bash
-tf-starter --provider <aws|gcp|azure> --project-name <name> [--output-dir <path>]
+tf-starter init [--output-dir <path>]
 ```
+
+The interactive wizard will guide you through selecting provider, project name, environments, services, region, and backend configuration.
 
 ### Arguments
 
 | Argument | Required | Description |
 |----------|:--------:|-------------|
-| `--provider` | Yes | Cloud provider: `aws`, `gcp`, or `azure` |
-| `--project-name` | Yes | Name of the project (alphanumeric, hyphens, underscores) |
+| `init` | Yes | Start the interactive project generator |
 | `--output-dir` | No | Output directory (default: current directory) |
 
 ### Examples
 
 ```bash
-# Generate an AWS project
-tf-starter --provider aws --project-name my-platform
+# Create a new project (interactive)
+tf-starter init
 
-# Generate a GCP project in a specific directory
-tf-starter --provider gcp --project-name gcp-infra --output-dir ./projects
-
-# Generate an Azure project
-tf-starter --provider azure --project-name azure-stack
+# Create a new project in a specific directory
+tf-starter init --output-dir ./projects
 ```
 
 ---
 
 ## Interactive Prompts
 
-After running the command, `tf-starter` guides you through four interactive prompts:
+After running `tf-starter init`, the wizard guides you through six interactive prompts:
 
-### 1. Environments
+### 1. Cloud Provider
+
+```
+? Select cloud provider:
+  aws
+  gcp
+  azure
+```
+
+### 2. Project Name
+
+```
+? Enter project name: my-platform
+```
+
+### 3. Environments
 
 ```
 ? Select environments to create:
@@ -167,7 +180,7 @@ After running the command, `tf-starter` guides you through four interactive prom
 
 Select one or more environments. Each gets its own `terraform.tfvars` with environment-specific values. Choose "custom" to enter a custom environment name.
 
-### 2. Services
+### 4. Services
 
 ```
 ? Select service categories to enable:
@@ -183,7 +196,7 @@ Select one or more environments. Each gets its own `terraform.tfvars` with envir
 
 Select the infrastructure modules you need. The **Network** module is always included automatically.
 
-### 3. Region
+### 5. Region
 
 ```
 ? Select AWS region:
@@ -196,7 +209,7 @@ Select the infrastructure modules you need. The **Network** module is always inc
 
 Choose from common regions or type a custom one.
 
-### 4. Remote Backend
+### 6. Remote Backend
 
 ```
 ? Enable remote backend (recommended for teams)? (Y/n)
@@ -405,7 +418,7 @@ git clone https://github.com/your-org/tf-starter.git && cd tf-starter
 npm install
 
 # 2. Generate a project
-npx tf-starter --provider aws --project-name my-platform
+npx tf-starter init
 
 # 3. Use the generated project
 cd my-platform

@@ -93,7 +93,7 @@ function main() {
   run(`"${pip}" install -e "${PKG_ROOT}" --quiet`);
 
   console.log("\n  ✔  tf-starter installed successfully!");
-  console.log("  Usage: tf-starter --provider aws --project-name myapp\n");
+  console.log("  Usage: tf-starter init\n");
 }
 
 try {

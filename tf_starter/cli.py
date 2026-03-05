@@ -99,28 +99,15 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  tf-starter --provider aws --project-name myapp
-  tf-starter --provider gcp --project-name my-gcp-infra
-  tf-starter --provider azure --project-name azure-platform
+  tf-starter init
+  tf-starter init --output-dir ./projects
         """,
     )
 
-    parser.add_argument(
-        "--provider",
-        type=str,
-        required=True,
-        choices=SUPPORTED_PROVIDERS,
-        help="Cloud provider (aws, gcp, azure)",
-    )
+    subparsers = parser.add_subparsers(dest="command")
 
-    parser.add_argument(
-        "--project-name",
-        type=str,
-        required=True,
-        help="Name of the project to generate",
-    )
-
-    parser.add_argument(
+    init_parser = subparsers.add_parser("init", help="Create a new Terraform project")
+    init_parser.add_argument(
         "--output-dir",
         type=str,
         default=".",
@@ -343,26 +330,56 @@ def print_summary(
     print()
 
 
+def ask_provider() -> str:
+    """Interactively ask for the cloud provider."""
+    provider = questionary.select(
+        "Select cloud provider:",
+        choices=SUPPORTED_PROVIDERS,
+        style=CUSTOM_STYLE,
+    ).ask()
+
+    if provider is None:
+        print("\nAborted.")
+        sys.exit(1)
+
+    return provider
+
+
+def ask_project_name() -> str:
+    """Interactively ask for the project name."""
+    name = questionary.text(
+        "Enter project name:",
+        style=CUSTOM_STYLE,
+        validate=lambda x: (
+            validate_project_name(x)
+            or "Must start with a letter and contain only letters, digits, hyphens, or underscores"
+        ),
+    ).ask()
+
+    if name is None:
+        print("\nAborted.")
+        sys.exit(1)
+
+    return name
+
+
 def main() -> None:
     """Main entry point for tf-starter CLI."""
     print_banner()
 
     args = parse_args()
 
-    if not validate_project_name(args.project_name):
-        print(
-            "Error: Project name must start with a letter and contain only "
-            "letters, digits, hyphens, or underscores."
-        )
+    if args.command != "init":
+        print("Usage: tf-starter init")
         sys.exit(1)
 
-    provider = args.provider.lower()
-    project_name = args.project_name
+    # Interactive questions
+    provider = ask_provider()
+    project_name = ask_project_name()
 
     print(f"\n  Provider:     {provider.upper()}")
     print(f"  Project name: {project_name}\n")
 
-    # Interactive questions
     environments = ask_environments()
     services = ask_services(provider)
     region = ask_region(provider)
