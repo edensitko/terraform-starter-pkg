@@ -58,13 +58,13 @@ module "compute" {
 }
 {% endif %}
 
-{% if "lambda" in services %}
+{% if "cloud_functions" in services %}
 # ---------------------------------------------------------------------------------------------------------------------
-# LAMBDA MODULE (Cloud Functions)
+# CLOUD FUNCTIONS MODULE
 # ---------------------------------------------------------------------------------------------------------------------
 
-module "lambda" {
-  source = "./modules/lambda"
+module "cloud_functions" {
+  source = "./modules/cloud_functions"
 
   project_name = local.project_name
   environment  = local.environment
@@ -96,7 +96,7 @@ module "apigateway" {
   project_id   = var.project_id
   region       = local.region
 
-  function_uri = module.lambda.function_uri
+  function_uri = module.cloud_functions.function_uri
 
   labels = local.common_labels
 }

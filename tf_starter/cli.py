@@ -194,11 +194,22 @@ def ask_services(provider: str) -> list[str]:
             )
             for key, meta in AWS_SERVICE_CATEGORIES.items()
         ]
-    else:
-        # GCP / Azure keep original generic names
+    elif provider == "gcp":
         service_choices = [
             questionary.Choice("compute", checked=True),
-            questionary.Choice("lambda"),
+            questionary.Choice("cloud_functions"),
+            questionary.Choice("apigateway"),
+            questionary.Choice("database"),
+            questionary.Choice("kubernetes"),
+            questionary.Choice("monitoring"),
+            questionary.Choice("messaging"),
+            questionary.Choice("storage"),
+        ]
+    else:
+        # Azure
+        service_choices = [
+            questionary.Choice("compute", checked=True),
+            questionary.Choice("functions"),
             questionary.Choice("apigateway"),
             questionary.Choice("database"),
             questionary.Choice("kubernetes"),
@@ -223,10 +234,17 @@ def ask_services(provider: str) -> list[str]:
         print("  ℹ  Kubernetes requires compute — auto-enabling compute (EC2, ALB, ASG).")
         selected.append("compute")
 
-    # Enforce dependency: apigateway requires lambda
-    if "apigateway" in selected and "lambda" not in selected:
-        print("  ℹ  API Gateway requires Lambda — auto-enabling Lambda.")
-        selected.append("lambda")
+    # Enforce dependency: apigateway requires serverless functions
+    if "apigateway" in selected:
+        if provider == "aws" and "lambda" not in selected:
+            print("  ℹ  API Gateway requires Lambda — auto-enabling Lambda.")
+            selected.append("lambda")
+        elif provider == "gcp" and "cloud_functions" not in selected:
+            print("  ℹ  API Gateway requires Cloud Functions — auto-enabling Cloud Functions.")
+            selected.append("cloud_functions")
+        elif provider == "azure" and "functions" not in selected:
+            print("  ℹ  API Gateway requires Azure Functions — auto-enabling Azure Functions.")
+            selected.append("functions")
 
     # Always include network module
     if "network" not in selected:

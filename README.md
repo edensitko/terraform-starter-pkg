@@ -39,7 +39,7 @@ Generate production-ready Terraform projects for AWS, GCP, or Azure in seconds. 
 - **Multi-cloud support** — AWS, GCP, and Azure with provider-specific best practices
 - **Interactive CLI** — Guided prompts for environments, services, region, and backend configuration
 - **Modular architecture** — Pick only the services you need; each generates an isolated Terraform module
-- **9 service modules** — Network, Compute, Lambda, API Gateway, Database, Kubernetes, Monitoring, Messaging, Storage
+- **9 service modules** — Network, Compute, Serverless Functions, API Gateway, Database, Kubernetes, Monitoring, Messaging, Storage
 - **Multi-environment** — Generate separate configurations for dev, staging, prod, or custom environments
 - **Environment-aware defaults** — Production gets HA, multi-AZ, higher resources; dev gets cost-optimized settings
 - **Remote state backend** — Optional S3+DynamoDB (AWS), GCS (GCP), or Azure Storage backend
@@ -47,7 +47,7 @@ Generate production-ready Terraform projects for AWS, GCP, or Azure in seconds. 
 - **Makefile** — Pre-configured `make init`, `make plan`, `make apply`, `make destroy` commands
 - **Pre-commit hooks** — terraform fmt, validate, tflint, and tfsec checks
 - **Auto-generated README** — Project documentation with architecture diagram tailored to selected services
-- **Dependency enforcement** — Kubernetes auto-enables Compute; API Gateway auto-enables Lambda
+- **Dependency enforcement** — Kubernetes auto-enables Compute; API Gateway auto-enables serverless functions
 - **Jinja2 template engine** — Dynamic rendering with conditional blocks based on selected services
 - **Dual installation** — Install via pip (Python) or npm (Node.js)
 
@@ -69,7 +69,7 @@ Generate production-ready Terraform projects for AWS, GCP, or Azure in seconds. 
 |--------|-------------|:---------------:|
 | **network** | VPC/VNet, subnets (public + private), internet gateway, NAT, route tables | Yes |
 | **compute** | Virtual machines, load balancer, auto-scaling group, launch templates | No |
-| **lambda** | Serverless functions with IAM roles, CloudWatch logs, VPC deployment option | No |
+| **lambda** / **cloud_functions** / **functions** | Serverless functions (Lambda on AWS, Cloud Functions on GCP, Azure Functions on Azure) | No |
 | **apigateway** | REST API with proxy integration to Lambda, throttling, CORS, access logging | No |
 | **database** | Managed PostgreSQL with encryption, multi-AZ (prod), automated backups | No |
 | **kubernetes** | Managed Kubernetes cluster with node groups, IAM/RBAC, cluster logging | No |
@@ -232,7 +232,7 @@ my-platform/
 │   │   ├── variables.tf
 │   │   └── outputs.tf
 │   ├── compute/               # EC2, ALB, ASG (if selected)
-│   ├── lambda/                # Lambda functions (if selected)
+│   ├── lambda|cloud_functions|functions/  # Serverless functions (if selected)
 │   ├── apigateway/            # API Gateway (if selected)
 │   ├── database/              # RDS PostgreSQL (if selected)
 │   ├── kubernetes/            # EKS cluster (if selected)
@@ -373,7 +373,7 @@ Generated `terraform.tfvars` files are automatically tuned per environment:
 `tf-starter` enforces module dependencies automatically:
 
 - **Kubernetes** requires **Compute** — EKS needs VPC networking and node instances. If you select Kubernetes without Compute, Compute is auto-enabled.
-- **API Gateway** requires **Lambda** — The API Gateway module is configured as a Lambda proxy integration. Selecting API Gateway without Lambda auto-enables Lambda.
+- **API Gateway** requires **Serverless Functions** — The API Gateway module integrates with Lambda (AWS), Cloud Functions (GCP), or Azure Functions (Azure). Selecting API Gateway without the serverless module auto-enables it.
 - **Network** is always included — All modules depend on VPC/subnet infrastructure.
 
 Conditional cross-module integrations:

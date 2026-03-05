@@ -54,13 +54,13 @@ module "compute" {
 }
 {% endif %}
 
-{% if "lambda" in services %}
+{% if "functions" in services %}
 # ---------------------------------------------------------------------------------------------------------------------
-# LAMBDA MODULE (Azure Functions)
+# AZURE FUNCTIONS MODULE
 # ---------------------------------------------------------------------------------------------------------------------
 
-module "lambda" {
-  source = "./modules/lambda"
+module "functions" {
+  source = "./modules/functions"
 
   project_name       = local.project_name
   environment        = local.environment
@@ -88,7 +88,7 @@ module "apigateway" {
   location           = local.location
   resource_group_name = module.network.resource_group_name
 
-  function_app_hostname = module.lambda.default_hostname
+  function_app_hostname = module.functions.default_hostname
   publisher_name        = var.apim_publisher_name
   publisher_email       = var.apim_publisher_email
   sku_name              = var.apim_sku_name
